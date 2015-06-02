@@ -9,6 +9,12 @@ uses
     IdTCPClient, Menus, Clipbrd, About;
 
 type
+    Tthread = class(Tthread)
+    protected
+        procedure Execute; override;
+    end;
+
+type
     Tm_Form = class(TForm)
         IdHTTP: TIdHTTP;
         sSkinManager: TsSkinManager;
@@ -24,6 +30,7 @@ type
         procedure N2Click(Sender: TObject);
     private
         { Private declarations }
+        function ParserTask(p: Pointer): Integer; stdcall;
     public
         { Public declarations }
     end;
@@ -35,18 +42,7 @@ implementation
 
 {$R *.dfm}
 
-procedure Tm_Form.N1Click(Sender: TObject);
-begin
-    Clipbrd.Clipboard.AsText := sListView.Selected.Caption + ' | ' + sListView.Selected.SubItems.Strings[0] + ' | ' + sListView.Selected.SubItems.Strings[1] + ' | ' + sListView.Selected.SubItems.Strings[2];
-    MessageBox(Handle, PWideChar(Clipbrd.Clipboard.AsText), '提示', MB_ICONINFORMATION);
-end;
-
-procedure Tm_Form.N2Click(Sender: TObject);
-begin
-    AboutBox.ShowModal;
-end;
-
-procedure Tm_Form.sButtonClick(Sender: TObject);
+function Tm_Form.ParserTask(p: Pointer): Integer; stdcall;
 var
     HTTP: TIdHTTP;
     i, j: Integer;
@@ -71,16 +67,18 @@ begin
             sListView.Items.Clear;
             for i := 0 to tr.Count - 1 do
             begin
-                sListView.Items.BeginUpdate;
+                m_Form.Canvas.Lock;
                 td := ParserHTML(tr[i].InnerHtml).SimpleCSSSelector('td');
                 for j := 0 to td.Count div 4 - 1 do
                 begin
+                    sListView.Items.BeginUpdate;
                     sListView.Items.Add.Caption := td[1].InnerText;
                     sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[2].InnerText);
                     sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[3].InnerText);
                     sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[4].InnerText);
+                    sListView.Items.EndUpdate;
                 end;
-                sListView.Items.EndUpdate;
+                m_Form.Canvas.UnLock;
             end;
         end;
     finally
@@ -89,6 +87,24 @@ begin
         ResponseStream.Free;
         sListView.Refresh;
     end;
+end;
+
+procedure Tm_Form.N1Click(Sender: TObject);
+begin
+    Clipbrd.Clipboard.AsText := sListView.Selected.Caption + ' | ' + sListView.Selected.SubItems.Strings[0] + ' | ' + sListView.Selected.SubItems.Strings[1] + ' | ' + sListView.Selected.SubItems.Strings[2];
+    MessageBox(sListView.Handle, PWideChar(Clipbrd.Clipboard.AsText), '提示', MB_ICONINFORMATION);
+end;
+
+procedure Tm_Form.N2Click(Sender: TObject);
+begin
+    AboutBox.ShowModal;
+end;
+
+procedure Tm_Form.sButtonClick(Sender: TObject);
+var
+    ID: THandle;
+begin
+    CreateThread(nil, 0, @Tm_Form.ParserTask, nil, 0, ID);
 end;
 
 procedure Tm_Form.sListViewMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);

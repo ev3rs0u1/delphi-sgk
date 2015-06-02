@@ -1,0 +1,19 @@
+unit Thread_Unit;
+
+interface
+
+uses
+    Classes, StdCtrls, SysUtils, Windows;
+
+type
+    m_Thread = class(TThread)
+    private
+    { Private declarations }
+    protected
+        procedure Execute; override;
+    end;
+
+implementation
+
+end.
+

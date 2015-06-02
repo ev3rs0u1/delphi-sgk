@@ -35,10 +35,11 @@ implementation
 
 {$R *.dfm}
 
+
 procedure Tm_Form.N1Click(Sender: TObject);
 begin
     Clipbrd.Clipboard.AsText := sListView.Selected.Caption + ' | ' + sListView.Selected.SubItems.Strings[0] + ' | ' + sListView.Selected.SubItems.Strings[1] + ' | ' + sListView.Selected.SubItems.Strings[2];
-    MessageBox(Handle, PWideChar(Clipbrd.Clipboard.AsText), '提示', MB_ICONINFORMATION);
+    MessageBox(sListView.Handle, PWideChar(Clipbrd.Clipboard.AsText), '提示', MB_ICONINFORMATION);
 end;
 
 procedure Tm_Form.N2Click(Sender: TObject);
@@ -55,6 +56,7 @@ var
     ParamPost: TStringList;
     ResponseStream: TStringStream;
 begin
+
     HTTP := TIdHTTP.Create(nil);
     ParamPost := TStringList.Create;
     ResponseStream := TStringstream.Create('', TEncoding.UTF8);
@@ -69,18 +71,20 @@ begin
         else
         begin
             sListView.Items.Clear;
+            FreeOnTerminate := True;
             for i := 0 to tr.Count - 1 do
             begin
-                sListView.Items.BeginUpdate;
                 td := ParserHTML(tr[i].InnerHtml).SimpleCSSSelector('td');
                 for j := 0 to td.Count div 4 - 1 do
                 begin
+
                     sListView.Items.Add.Caption := td[1].InnerText;
                     sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[2].InnerText);
                     sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[3].InnerText);
                     sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[4].InnerText);
+                    Application.ProcessMessages;
                 end;
-                sListView.Items.EndUpdate;
+
             end;
         end;
     finally
