@@ -6,10 +6,10 @@ object m_Form: Tm_Form
   Margins.Right = 1
   Margins.Bottom = 1
   AlphaBlend = True
-  AlphaBlendValue = 222
+  AlphaBlendValue = 235
   Caption = 'SGKT00l v1.0'
-  ClientHeight = 275
-  ClientWidth = 385
+  ClientHeight = 283
+  ClientWidth = 387
   Color = clBtnFace
   Font.Charset = GB2312_CHARSET
   Font.Color = clWindowText
@@ -19,15 +19,15 @@ object m_Form: Tm_Form
   OldCreateOrder = False
   Position = poDesktopCenter
   DesignSize = (
-    385
-    275)
+    387
+    283)
   PixelsPerInch = 96
   TextHeight = 19
   object sListView: TsListView
     Left = 0
-    Top = 32
-    Width = 384
-    Height = 243
+    Top = 33
+    Width = 386
+    Height = 251
     BevelInner = bvNone
     BevelOuter = bvNone
     BoundLabel.Indent = 0
@@ -74,11 +74,12 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
+    ExplicitHeight = 255
   end
   object sEdit: TsEdit
     Left = 0
     Top = 1
-    Width = 290
+    Width = 292
     Height = 26
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
@@ -100,9 +101,10 @@ object m_Form: Tm_Form
     BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
+    ExplicitWidth = 290
   end
   object sButton: TsButton
-    Left = 292
+    Left = 294
     Top = 1
     Width = 92
     Height = 26
@@ -117,6 +119,7 @@ object m_Form: Tm_Form
     ParentFont = False
     TabOrder = 1
     OnClick = sButtonClick
+    ExplicitLeft = 292
   end
   object IdHTTP: TIdHTTP
     AllowCookies = True
@@ -133,6 +136,10 @@ object m_Form: Tm_Form
     Top = 61
   end
   object sSkinManager: TsSkinManager
+    AnimEffects.FormShow.Active = False
+    AnimEffects.FormHide.Active = False
+    AnimEffects.Minimizing.Active = False
+    AnimEffects.SkinChanging.Active = False
     InternalSkins = <
       item
         Name = 'Terminal4bit (internal)'

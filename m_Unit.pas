@@ -6,7 +6,7 @@ uses
     Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
     Dialogs, StdCtrls, HtmlParser, IdHTTP, IdBaseComponent, IdComponent,
     sSkinManager, sEdit, ComCtrls, sListView, sButton, IdTCPConnection,
-    IdTCPClient, Menus, Clipbrd, About;
+    IdTCPClient, Menus, Clipbrd, About, IdAntiFreezeBase, IdAntiFreeze;
 
 type
     Tm_Form = class(TForm)
@@ -18,6 +18,7 @@ type
         PopupMenu: TPopupMenu;
         N1: TMenuItem;
         N2: TMenuItem;
+        IdAntiFreeze: TIdAntiFreeze;
         procedure sButtonClick(Sender: TObject);
         procedure N1Click(Sender: TObject);
         procedure sListViewMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -39,12 +40,12 @@ implementation
 function Tm_Form.MsgBox(const Msg: string; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; HelpCtx: Integer): Integer;
 begin
     with CreateMessageDialog(Msg, DlgType, Buttons) do
-        try
-            Position := poOwnerFormCenter;
-            Result := ShowModal
-        finally
-            Free
-        end
+    try
+        Position := poOwnerFormCenter;
+        Result := ShowModal
+    finally
+        Free
+    end
 end;
 
 procedure Tm_Form.N1Click(Sender: TObject);
@@ -70,34 +71,36 @@ begin
     ParamPost := TStringList.Create;
     ResponseStream := TStringstream.Create('', TEncoding.UTF8);
     try
+        sButton.Enabled := False;
         ParamPost.Add('type=1');
-        ParamPost.Add('key=' + sEdit.Text);
+        ParamPost.Add('key=' + Trim(sEdit.Text));
         HTTP.Post('http://shota.cc/tools/qun.php', ParamPost, ResponseStream);
         tr := ParserHTML(ResponseStream.DataString).SimpleCSSSelector('table tbody tr');
         if tr.Count = 0 then
+            MsgBox('未能找到该QQ相关信息或请求过于频繁！', mterror, [mbOk], 0)
+        else
         begin
-            MsgBox('未能找到该QQ相关信息！', mtError, [mbOk], 0);
-            Exit;
-        end;
-        sListView.Items.Clear;
-        for i := 0 to tr.Count - 1 do
-        begin
-            sListView.Items.BeginUpdate;
-            td := ParserHTML(tr[i].InnerHtml).SimpleCSSSelector('td');
-            for j := 0 to td.Count div 4 - 1 do
+            sListView.Items.Clear;
+            for i := 0 to tr.Count - 1 do
             begin
-                sListView.Items.Add.Caption := td[1].InnerText;
-                sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[2].InnerText);
-                sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[3].InnerText);
-                sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[4].InnerText);
-            end;
-            sListView.Items.EndUpdate;
+                sListView.Items.BeginUpdate;
+                td := ParserHTML(tr[i].InnerHtml).SimpleCSSSelector('td');
+                for j := 0 to td.Count div 4 - 1 do
+                begin
+                    sListView.Items.Add.Caption := td[1].InnerText;
+                    sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[2].InnerText);
+                    sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[3].InnerText);
+                    sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[4].InnerText);
+                end;
+                sListView.Items.EndUpdate;
+            end
         end;
     finally
         FreeAndNil(HTTP);
         ParamPost.Free;
         ResponseStream.Free;
         sListView.Refresh;
+        sButton.Enabled := True;
     end;
 end;
 

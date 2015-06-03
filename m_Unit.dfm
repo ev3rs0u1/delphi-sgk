@@ -8,8 +8,8 @@ object m_Form: Tm_Form
   AlphaBlend = True
   AlphaBlendValue = 235
   Caption = 'SGKT00l v1.0'
-  ClientHeight = 283
-  ClientWidth = 387
+  ClientHeight = 270
+  ClientWidth = 375
   Color = clBtnFace
   Font.Charset = GB2312_CHARSET
   Font.Color = clWindowText
@@ -19,15 +19,15 @@ object m_Form: Tm_Form
   OldCreateOrder = False
   Position = poDesktopCenter
   DesignSize = (
-    387
-    283)
+    375
+    270)
   PixelsPerInch = 96
   TextHeight = 19
   object sListView: TsListView
     Left = 0
-    Top = 33
-    Width = 386
-    Height = 251
+    Top = 32
+    Width = 375
+    Height = 238
     BevelInner = bvNone
     BevelOuter = bvNone
     BoundLabel.Indent = 0
@@ -74,12 +74,13 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
-    ExplicitHeight = 255
+    ExplicitWidth = 387
+    ExplicitHeight = 251
   end
   object sEdit: TsEdit
     Left = 0
     Top = 1
-    Width = 292
+    Width = 280
     Height = 26
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
@@ -101,10 +102,10 @@ object m_Form: Tm_Form
     BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
-    ExplicitWidth = 290
+    ExplicitWidth = 292
   end
   object sButton: TsButton
-    Left = 294
+    Left = 282
     Top = 1
     Width = 92
     Height = 26
@@ -119,7 +120,7 @@ object m_Form: Tm_Form
     ParentFont = False
     TabOrder = 1
     OnClick = sButtonClick
-    ExplicitLeft = 292
+    ExplicitLeft = 294
   end
   object IdHTTP: TIdHTTP
     AllowCookies = True
@@ -132,8 +133,7 @@ object m_Form: Tm_Form
       'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gec' +
       'ko) Chrome/42.0.2311.152 Safari/537.36'
     HTTPOptions = [hoForceEncodeParams]
-    Left = 332
-    Top = 61
+    Top = 57
   end
   object sSkinManager: TsSkinManager
     AnimEffects.FormShow.Active = False
@@ -436,12 +436,12 @@ object m_Form: Tm_Form
     ThirdParty.ThirdScrollBar = 'TScrollBar'
     ThirdParty.ThirdStaticText = 'TStaticText'
     ThirdParty.ThirdNativePaint = ' '
-    Left = 360
-    Top = 61
+    Left = 344
+    Top = 58
   end
   object PopupMenu: TPopupMenu
-    Left = 306
-    Top = 61
+    Left = 316
+    Top = 58
     object N1: TMenuItem
       Caption = 'Copy'
       Default = True
@@ -451,5 +451,10 @@ object m_Form: Tm_Form
       Caption = 'About'
       OnClick = N2Click
     end
+  end
+  object IdAntiFreeze: TIdAntiFreeze
+    OnlyWhenIdle = False
+    Left = 27
+    Top = 57
   end
 end
