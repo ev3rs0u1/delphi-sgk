@@ -24,7 +24,6 @@ type
         procedure N2Click(Sender: TObject);
     private
         { Private declarations }
-        function MsgBox(const Msg: string; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; HelpCtx: Integer): Integer;
     public
         { Public declarations }
     end;
@@ -36,21 +35,10 @@ implementation
 
 {$R *.dfm}
 
-function Tm_Form.MsgBox(const Msg: string; DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; HelpCtx: Integer): Integer;
-begin
-    with CreateMessageDialog(Msg, DlgType, Buttons) do
-        try
-            Position := poOwnerFormCenter;
-            Result := ShowModal
-        finally
-            Free
-        end
-end;
-
 procedure Tm_Form.N1Click(Sender: TObject);
 begin
     Clipbrd.Clipboard.AsText := sListView.Selected.Caption + ' | ' + sListView.Selected.SubItems.Strings[0] + ' | ' + sListView.Selected.SubItems.Strings[1] + ' | ' + sListView.Selected.SubItems.Strings[2];
-    MsgBox(Clipbrd.Clipboard.AsText, mtInformation, [mbOK], 0);
+    MessageBox(Handle, PWideChar(Clipbrd.Clipboard.AsText), '提示', MB_ICONINFORMATION);
 end;
 
 procedure Tm_Form.N2Click(Sender: TObject);
@@ -75,23 +63,23 @@ begin
         HTTP.Post('http://shota.cc/tools/qun.php', ParamPost, ResponseStream);
         tr := ParserHTML(ResponseStream.DataString).SimpleCSSSelector('table tbody tr');
         if tr.Count = 0 then
+            MessageBox(Self.Handle, '未找该QQ号相关信息！', '提示', MB_OK)
+        else
         begin
-            MsgBox('未能找到该QQ相关信息！', mtError, [mbOk], 0);
-            Exit;
-        end;
-        sListView.Items.Clear;
-        for i := 0 to tr.Count - 1 do
-        begin
-            sListView.Items.BeginUpdate;
-            td := ParserHTML(tr[i].InnerHtml).SimpleCSSSelector('td');
-            for j := 0 to td.Count div 4 - 1 do
+            sListView.Items.Clear;
+            for i := 0 to tr.Count - 1 do
             begin
-                sListView.Items.Add.Caption := td[1].InnerText;
-                sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[2].InnerText);
-                sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[3].InnerText);
-                sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[4].InnerText);
+                sListView.Items.BeginUpdate;
+                td := ParserHTML(tr[i].InnerHtml).SimpleCSSSelector('td');
+                for j := 0 to td.Count div 4 - 1 do
+                begin
+                    sListView.Items.Add.Caption := td[1].InnerText;
+                    sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[2].InnerText);
+                    sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[3].InnerText);
+                    sListView.Items[sListView.Items.Count - 1].SubItems.Add(td[4].InnerText);
+                end;
+                sListView.Items.EndUpdate;
             end;
-            sListView.Items.EndUpdate;
         end;
     finally
         FreeAndNil(HTTP);
