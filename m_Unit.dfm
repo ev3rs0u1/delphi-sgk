@@ -7,8 +7,8 @@ object m_Form: Tm_Form
   Margins.Bottom = 1
   AlphaBlend = True
   AlphaBlendValue = 235
-  Caption = 'SGKT00l v1.0'
-  ClientHeight = 270
+  Caption = 'SGKT00l Beta v1.0'
+  ClientHeight = 275
   ClientWidth = 375
   Color = clBtnFace
   Font.Charset = GB2312_CHARSET
@@ -20,14 +20,14 @@ object m_Form: Tm_Form
   Position = poDesktopCenter
   DesignSize = (
     375
-    270)
+    275)
   PixelsPerInch = 96
   TextHeight = 19
   object sListView: TsListView
     Left = 0
     Top = 32
     Width = 375
-    Height = 238
+    Height = 243
     BevelInner = bvNone
     BevelOuter = bvNone
     BoundLabel.Indent = 0
@@ -74,8 +74,7 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
-    ExplicitWidth = 387
-    ExplicitHeight = 251
+    ExplicitHeight = 238
   end
   object sEdit: TsEdit
     Left = 0
@@ -102,7 +101,6 @@ object m_Form: Tm_Form
     BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
-    ExplicitWidth = 292
   end
   object sButton: TsButton
     Left = 282
@@ -120,7 +118,6 @@ object m_Form: Tm_Form
     ParentFont = False
     TabOrder = 1
     OnClick = sButtonClick
-    ExplicitLeft = 294
   end
   object IdHTTP: TIdHTTP
     AllowCookies = True
