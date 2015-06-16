@@ -6,10 +6,10 @@ object m_Form: Tm_Form
   Margins.Right = 1
   Margins.Bottom = 1
   AlphaBlend = True
-  AlphaBlendValue = 225
-  Caption = 'SGKT00l Beta v1.0'
-  ClientHeight = 275
-  ClientWidth = 380
+  AlphaBlendValue = 230
+  Caption = 'SGKT00l Beta v1.5'
+  ClientHeight = 286
+  ClientWidth = 387
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = GB2312_CHARSET
@@ -19,16 +19,15 @@ object m_Form: Tm_Form
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnDestroy = FormDestroy
   DesignSize = (
-    380
-    275)
+    387
+    286)
   PixelsPerInch = 96
   TextHeight = 19
   object sEdit: TsEdit
     Left = 0
     Top = 1
-    Width = 285
+    Width = 292
     Height = 26
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
@@ -50,9 +49,10 @@ object m_Form: Tm_Form
     BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
+    ExplicitWidth = 285
   end
   object sButton: TsButton
-    Left = 287
+    Left = 294
     Top = 1
     Width = 92
     Height = 26
@@ -67,12 +67,13 @@ object m_Form: Tm_Form
     ParentFont = False
     TabOrder = 1
     OnClick = sButtonClick
+    ExplicitLeft = 287
   end
   object sListView: TsListView
     Left = 0
     Top = 32
-    Width = 380
-    Height = 243
+    Width = 387
+    Height = 254
     BevelInner = bvNone
     BevelOuter = bvNone
     BoundLabel.Indent = 0
@@ -119,6 +120,8 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
+    ExplicitWidth = 380
+    ExplicitHeight = 243
   end
   object sSkinManager: TsSkinManager
     AnimEffects.FormShow.Active = False
@@ -438,6 +441,7 @@ object m_Form: Tm_Form
     end
   end
   object HttpCli: THttpCli
+    URL = 'http://shota.cc/tools/qun.php'
     LocalAddr = '0.0.0.0'
     LocalAddr6 = '::'
     ProxyPort = '80'
@@ -447,7 +451,6 @@ object m_Form: Tm_Form
     Accept = 
       'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp' +
       ',*/*;q=0.8'
-    Reference = 'http://shota.cc/tools/qun.php'
     NoCache = False
     ContentTypePost = 'application/x-www-form-urlencoded'
     RequestVer = '1.0'
@@ -458,7 +461,8 @@ object m_Form: Tm_Form
     BandwidthLimit = 10000
     BandwidthSampling = 1000
     Options = []
-    Timeout = 15
+    Timeout = 10
+    OnRequestDone = HttpCliRequestDone
     SocksAuthentication = socksNoAuthentication
     SocketFamily = sfIPv4
     Left = 288
