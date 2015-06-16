@@ -11,6 +11,7 @@ object m_Form: Tm_Form
   ClientHeight = 275
   ClientWidth = 380
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = GB2312_CHARSET
   Font.Color = clWindowText
   Font.Height = -13
@@ -18,11 +19,55 @@ object m_Form: Tm_Form
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnDestroy = FormDestroy
   DesignSize = (
     380
     275)
   PixelsPerInch = 96
   TextHeight = 19
+  object sEdit: TsEdit
+    Left = 0
+    Top = 1
+    Width = 285
+    Height = 26
+    Anchors = [akLeft, akTop, akRight]
+    AutoSize = False
+    Color = clBlack
+    Font.Charset = GB2312_CHARSET
+    Font.Color = clLime
+    Font.Height = -15
+    Font.Name = #24494#36719#38597#40657
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    SkinData.SkinSection = 'EDIT'
+    BoundLabel.Indent = 0
+    BoundLabel.Font.Charset = DEFAULT_CHARSET
+    BoundLabel.Font.Color = clWindowText
+    BoundLabel.Font.Height = -11
+    BoundLabel.Font.Name = 'Tahoma'
+    BoundLabel.Font.Style = []
+    BoundLabel.Layout = sclLeft
+    BoundLabel.MaxWidth = 0
+    BoundLabel.UseSkinColor = True
+  end
+  object sButton: TsButton
+    Left = 287
+    Top = 1
+    Width = 92
+    Height = 26
+    Anchors = [akTop, akRight]
+    Caption = 'Find'
+    Default = True
+    Font.Charset = GB2312_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = #24494#36719#38597#40657
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    OnClick = sButtonClick
+  end
   object sListView: TsListView
     Left = 0
     Top = 32
@@ -74,65 +119,6 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
-    ExplicitWidth = 375
-  end
-  object sEdit: TsEdit
-    Left = 0
-    Top = 1
-    Width = 285
-    Height = 26
-    Anchors = [akLeft, akTop, akRight]
-    AutoSize = False
-    Color = clBlack
-    Font.Charset = GB2312_CHARSET
-    Font.Color = clLime
-    Font.Height = -15
-    Font.Name = #24494#36719#38597#40657
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 0
-    SkinData.SkinSection = 'EDIT'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
-    ExplicitWidth = 280
-  end
-  object sButton: TsButton
-    Left = 287
-    Top = 1
-    Width = 92
-    Height = 26
-    Anchors = [akTop, akRight]
-    Caption = 'Find'
-    Default = True
-    Font.Charset = GB2312_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = #24494#36719#38597#40657
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 1
-    OnClick = sButtonClick
-    ExplicitLeft = 282
-  end
-  object IdHTTP: TIdHTTP
-    AllowCookies = True
-    ProxyParams.BasicAuthentication = False
-    ProxyParams.ProxyPort = 0
-    Request.ContentLength = -1
-    Request.Accept = 'text/html, */*'
-    Request.BasicAuthentication = False
-    Request.UserAgent = 
-      'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gec' +
-      'ko) Chrome/42.0.2311.152 Safari/537.36'
-    HTTPOptions = [hoForceEncodeParams]
-    Top = 57
   end
   object sSkinManager: TsSkinManager
     AnimEffects.FormShow.Active = False
@@ -451,9 +437,31 @@ object m_Form: Tm_Form
       OnClick = N2Click
     end
   end
-  object IdAntiFreeze: TIdAntiFreeze
-    OnlyWhenIdle = False
-    Left = 27
-    Top = 57
+  object HttpCli: THttpCli
+    LocalAddr = '0.0.0.0'
+    LocalAddr6 = '::'
+    ProxyPort = '80'
+    Agent = 
+      'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gec' +
+      'ko) Chrome/42.0.2311.152 Safari/537.36'
+    Accept = 
+      'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp' +
+      ',*/*;q=0.8'
+    Reference = 'http://shota.cc/tools/qun.php'
+    NoCache = False
+    ContentTypePost = 'application/x-www-form-urlencoded'
+    RequestVer = '1.0'
+    FollowRelocation = True
+    LocationChangeMaxCount = 5
+    ServerAuth = httpAuthNone
+    ProxyAuth = httpAuthNone
+    BandwidthLimit = 10000
+    BandwidthSampling = 1000
+    Options = []
+    Timeout = 15
+    SocksAuthentication = socksNoAuthentication
+    SocketFamily = sfIPv4
+    Left = 288
+    Top = 58
   end
 end
