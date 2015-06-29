@@ -42,7 +42,6 @@
 			<DCCReference Include="m_Unit.pas">
 				<Form>m_Form</Form>
 			</DCCReference>
-			<DCCReference Include="HtmlParser.pas"/>
 			<DCCReference Include="ABOUT.pas">
 				<Form>AboutBox</Form>
 			</DCCReference>

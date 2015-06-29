@@ -8,8 +8,8 @@ object m_Form: Tm_Form
   AlphaBlend = True
   AlphaBlendValue = 230
   Caption = 'SGKT00l Beta v1.5'
-  ClientHeight = 286
-  ClientWidth = 387
+  ClientHeight = 242
+  ClientWidth = 298
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = GB2312_CHARSET
@@ -20,14 +20,14 @@ object m_Form: Tm_Form
   OldCreateOrder = False
   Position = poDesktopCenter
   DesignSize = (
-    387
-    286)
+    298
+    242)
   PixelsPerInch = 96
   TextHeight = 19
   object sEdit: TsEdit
     Left = 0
     Top = 1
-    Width = 292
+    Width = 203
     Height = 26
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
@@ -49,10 +49,10 @@ object m_Form: Tm_Form
     BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
-    ExplicitWidth = 285
+    ExplicitWidth = 213
   end
   object sButton: TsButton
-    Left = 294
+    Left = 205
     Top = 1
     Width = 92
     Height = 26
@@ -67,13 +67,13 @@ object m_Form: Tm_Form
     ParentFont = False
     TabOrder = 1
     OnClick = sButtonClick
-    ExplicitLeft = 287
+    ExplicitLeft = 215
   end
   object sListView: TsListView
     Left = 0
     Top = 32
-    Width = 387
-    Height = 254
+    Width = 298
+    Height = 210
     BevelInner = bvNone
     BevelOuter = bvNone
     BoundLabel.Indent = 0
@@ -106,7 +106,7 @@ object m_Form: Tm_Form
       item
         Alignment = taCenter
         AutoSize = True
-        Caption = 'QunTitle:'
+        Caption = 'Position:'
       end>
     ColumnClick = False
     Font.Charset = GB2312_CHARSET
@@ -120,8 +120,7 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
-    ExplicitWidth = 380
-    ExplicitHeight = 243
+    ExplicitWidth = 308
   end
   object sSkinManager: TsSkinManager
     AnimEffects.FormShow.Active = False
@@ -424,12 +423,12 @@ object m_Form: Tm_Form
     ThirdParty.ThirdScrollBar = 'TScrollBar'
     ThirdParty.ThirdStaticText = 'TStaticText'
     ThirdParty.ThirdNativePaint = ' '
-    Left = 344
-    Top = 58
+    Left = 56
+    Top = 258
   end
   object PopupMenu: TPopupMenu
-    Left = 316
-    Top = 58
+    Left = 28
+    Top = 258
     object N1: TMenuItem
       Caption = 'Copy'
       Default = True
@@ -441,16 +440,12 @@ object m_Form: Tm_Form
     end
   end
   object HttpCli: THttpCli
-    URL = 'http://shota.cc/tools/qun.php'
     LocalAddr = '0.0.0.0'
     LocalAddr6 = '::'
     ProxyPort = '80'
-    Agent = 
-      'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gec' +
-      'ko) Chrome/42.0.2311.152 Safari/537.36'
-    Accept = 
-      'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp' +
-      ',*/*;q=0.8'
+    Agent = 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+    Accept = '*/*'
+    Reference = 'http://qun.col.pw/'
     NoCache = False
     ContentTypePost = 'application/x-www-form-urlencoded'
     RequestVer = '1.0'
@@ -461,11 +456,10 @@ object m_Form: Tm_Form
     BandwidthLimit = 10000
     BandwidthSampling = 1000
     Options = []
-    Timeout = 10
+    Timeout = 15
     OnRequestDone = HttpCliRequestDone
     SocksAuthentication = socksNoAuthentication
     SocketFamily = sfIPv4
-    Left = 288
-    Top = 58
+    Top = 258
   end
 end
