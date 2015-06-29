@@ -49,7 +49,6 @@ object m_Form: Tm_Form
     BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
-    ExplicitWidth = 213
   end
   object sButton: TsButton
     Left = 205
@@ -67,7 +66,6 @@ object m_Form: Tm_Form
     ParentFont = False
     TabOrder = 1
     OnClick = sButtonClick
-    ExplicitLeft = 215
   end
   object sListView: TsListView
     Left = 0
@@ -120,7 +118,6 @@ object m_Form: Tm_Form
     TabOrder = 2
     ViewStyle = vsReport
     OnMouseDown = sListViewMouseDown
-    ExplicitWidth = 308
   end
   object sSkinManager: TsSkinManager
     AnimEffects.FormShow.Active = False
